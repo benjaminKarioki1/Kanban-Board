@@ -1,10 +1,10 @@
-typedef struct Boards
+typedef struct Lists
 {
 	//name of the list
 	char name[30];
 	//pointer to next list
-	struct Boards* nextL;
-}Board;
+	struct Lists* nextL;
+}List;
  
 typedef struct Elements 
 {

@@ -6,6 +6,10 @@
 
 int mian(void) 
 {
-	printMenu()
+	/*
+	 * Here has the variables of the board
+	 */
+
+	int option;
 	return 0;
 }
