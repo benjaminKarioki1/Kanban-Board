@@ -1,1 +1,1 @@
-void printBoard();
+int printMenu(void);

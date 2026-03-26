@@ -6,5 +6,6 @@
 
 int mian(void) 
 {
+	printMenu()
 	return 0;
 }
