@@ -22,6 +22,7 @@ int main(void)
 		if (option == 1) 
 		{
 			//
+			displayBoard();
 		}
 		else if (option == 2) 
 		{
