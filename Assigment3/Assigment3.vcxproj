@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="displayBoard.c" />
+    <ClCompile Include="loadFile.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="printMenu.c" />
   </ItemGroup>

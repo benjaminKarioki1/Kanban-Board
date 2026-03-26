@@ -11,6 +11,9 @@ int main(void)
 	/*
 	 *  Here has the variables of the board
 	 */
+	List ;
+
+
 	int option;
 
 	/*
@@ -22,7 +25,7 @@ int main(void)
 		if (option == 1) 
 		{
 			//
-			displayBoard();
+			
 		}
 		else if (option == 2) 
 		{

@@ -24,6 +24,9 @@
     <ClCompile Include="displayBoard.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="loadFile.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="structure.h">
