@@ -1,3 +1,7 @@
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <stdio.h>
+
 #include "structure.h"
 #include "board.h"
 
@@ -13,9 +17,12 @@ int printMenu(void)
 			"4. Edit Board\n"
 			"5. Save board to a file\n"
 			"6. Quit\n"
-			"Enter your choice(1 - 5) : \n");
+			"Enter your choice (1 - 6): ");
 	//get the option thar user want
-	scacnf("%d", &choose);
+	scanf("%d", &choose);
+	//clean the stdin
+	scanf("%*[^\n]");
+	scanf("%*c");
 	//return the option number back
 	return choose; 
 }
