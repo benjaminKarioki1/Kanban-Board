@@ -73,7 +73,9 @@ void loadFile(Listptr *Lptr)
 				return;
 			}
 			//insert name
-			newList->head = title;
+			strcpy(newList->name, title);
+			//init. the pointer to elements
+			newList->head = NULL;
 			//chage the position of pointer
 			newList->nextL = *Lptr;
 			*Lptr = newList;
@@ -91,6 +93,7 @@ void loadFile(Listptr *Lptr)
 		}
 		//insert the value
 		strcpy(newElement->name, element);
+		//init. the next element pointer postion
 		newElement->nextE = NULL;
 		//set the postion of pointer
 		newElement->nextE = newList->head;
