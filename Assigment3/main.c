@@ -11,7 +11,7 @@ int main(void)
 	/*
 	 *  Here has the variables of the board
 	 */
-	List start;
+	Listptr head = NULL;
 
 	int option;
 
@@ -24,11 +24,11 @@ int main(void)
 		if (option == 1) 
 		{
 			//
-			
 		}
 		else if (option == 2) 
 		{
 			//
+			loadFile(&head);
 		}
 		else if (option == 3)
 		{

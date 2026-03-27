@@ -1,5 +1,5 @@
 int printMenu(void);
 
-void displayBoard(List， Element);
+void displayBoard(Listptr* Lptr, Element* Eptr);
 
-void loadFile(List, Element);
+void loadFile(List* Lptr);

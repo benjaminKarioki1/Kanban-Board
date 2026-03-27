@@ -1,14 +1,4 @@
-typedef struct Lists
-{
-	//name of the list
-	char name[30];
-	//pointer to next list
-	struct Lists* nextL;
-}List;
-//make a pointer
-typedef List* Listptr;
- 
-typedef struct Elements 
+typedef struct Elements
 {
 	//name of the element
 	char name[30];
@@ -18,3 +8,14 @@ typedef struct Elements
 //make a pointer 
 typedef Element* Elementptr;
 
+typedef struct Lists
+{
+	//name of the list
+	char name[30];
+	//to the elements
+	Elementptr head;
+	//pointer to next list
+	struct Lists* nextL;
+}List;
+//make a pointer
+typedef List* Listptr;

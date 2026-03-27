@@ -5,7 +5,7 @@
 #include "structure.h"
 #include "board.h"
 
-void displayBoard(List, Element)
+void displayBoard(List* Lptr, Element* Eptr)
 {
 
 }
