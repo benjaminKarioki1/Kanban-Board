@@ -40,7 +40,7 @@ void loadFile(Listptr *Lptr)
 		title = strtok(line, ",");
 		element = strtok(NULL, ",");
 		//if the data damaged in this line
-		if (title == NULL || element == NULL) 
+		if (title == NULL) 
 		{
 			//pass
 			printf("Warning: Skipping malformed line: %s\n", line);
@@ -86,24 +86,27 @@ void loadFile(Listptr *Lptr)
 			newList->nextL = *Lptr;
 			*Lptr = newList;
 		}
-
-		//creat element 
-		Elementptr newElement = malloc(sizeof(Element));
-		//faild
-		if (newElement == NULL)
+		
+		if (element != NULL) 
 		{
-			printf("Error: No Memory.\n");
-			free(newElement);
-			fclose(fp);
-			return;
+			//creat element 
+			Elementptr newElement = malloc(sizeof(Element));
+			//faild
+			if (newElement == NULL)
+			{
+				printf("Error: No Memory.\n");
+				free(newElement);
+				fclose(fp);
+				return;
+			}
+			//insert the value
+			strcpy(newElement->name, element);
+			//init. the next element pointer postion
+			newElement->nextE = NULL;
+			//set the postion of pointer
+			newElement->nextE = newList->head;
+			newList->head = newElement;
 		}
-		//insert the value
-		strcpy(newElement->name, element);
-		//init. the next element pointer postion
-		newElement->nextE = NULL;
-		//set the postion of pointer
-		newElement->nextE = newList->head;
-		newList->head = newElement;
 	}
 	//close the doc.
 	fclose(fp);
