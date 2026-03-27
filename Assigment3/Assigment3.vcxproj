@@ -131,6 +131,7 @@
     <ClCompile Include="loadFile.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="printMenu.c" />
+    <ClCompile Include="writeFile.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="board.h" />
