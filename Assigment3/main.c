@@ -23,11 +23,12 @@ int main(void)
 		option = printMenu();
 		if (option == 1) 
 		{
-			//
+			//display the board on terminal
+			displayBoard(head);
 		}
 		else if (option == 2) 
 		{
-			//
+			//load the board from the file that user want
 			loadFile(&head);
 		}
 		else if (option == 3)
@@ -44,14 +45,17 @@ int main(void)
 		}
 		else if (option == 6) 
 		{
+			//leave out the board
 			printf("Quit the board right now.\n");
 		}
 		else 
 		{
+			//invalid input
 			printf("Invalid Option!\n");
 		}
-
-		system("pause");
+		//clean the terminal
+		printf("Press Enter to continue...\n");
+		getchar();
 		printf("\033[2J\033[H");
 	} 
 	while (option != 6);

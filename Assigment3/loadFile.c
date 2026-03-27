@@ -17,12 +17,17 @@ void loadFile(Listptr *Lptr)
 	char* element;
 	
 	//get the name of file
+	printf("Enter filename: ");
 	scanf("%99s", fileName);
+	//clean the stdin
+	scanf("%*[^\n]");
+	scanf("%*c");
 	//open the file
 	if ((fp = fopen(fileName, "r")) == NULL)
 	{
 		//faild to open
-		printf("Error: Could not open file. The file dose not exist! \n");
+		printf("Error: Could not open file. The %s dose not exist! \n", fileName);
+		
 		return;
 	}
 
@@ -38,6 +43,7 @@ void loadFile(Listptr *Lptr)
 		if (title == NULL || element == NULL) 
 		{
 			//pass
+			printf("Warning: Skipping malformed line: %s\n", line);
 			continue;
 		}
 

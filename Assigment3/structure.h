@@ -1,3 +1,4 @@
+//the structure for elements
 typedef struct Elements
 {
 	//name of the element
@@ -8,6 +9,7 @@ typedef struct Elements
 //make a pointer 
 typedef Element* Elementptr;
 
+//the structure for lists
 typedef struct Lists
 {
 	//name of the list

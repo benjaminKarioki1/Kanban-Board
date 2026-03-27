@@ -5,7 +5,33 @@
 #include "structure.h"
 #include "board.h"
 
-void displayBoard(List* Lptr, Element* Eptr)
+void displayBoard(Listptr Lptr)
 {
-
+	//if the List is empty
+	if (Lptr == NULL) 
+	{
+		printf("EMPTY!!!\n");
+	}
+	else 
+	{
+		//copy the pointer
+		Listptr currentList = Lptr;
+		//print out all List
+		while (Lptr != NULL) 
+		{
+			printf("%s:\n", currentList->name);
+			//access the elements
+			Element* currentElement = currentList->head;
+			//print out eleents
+			while (currentElement != NULL)
+			{
+				printf("    %s\n", currentElement->name);
+				//move to next element
+				currentElement = currentElement->nextE;
+			}
+	        //move to next List
+			currentList = currentList->nextL;
+		}
+	}
+	return;
 }
