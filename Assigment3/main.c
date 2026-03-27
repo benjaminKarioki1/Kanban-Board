@@ -11,8 +11,7 @@ int main(void)
 	/*
 	 *  Here has the variables of the board
 	 */
-	List ;
-
+	List start;
 
 	int option;
 
