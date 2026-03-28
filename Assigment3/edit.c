@@ -28,24 +28,11 @@ Elementptr findElement(Elementptr head, char *targetName) {
     return NULL;
 }
 
-void renameItem(Listptr head){
+void renameItem(Listptr foundElement){
 
-    printf("Enter name of the list: ");
-    char name[20];
-    fgets(name, sizeof(name), stdin);
-    name[strcspn(name, "\n")] = '\0';
-
-    Listptr foundList = findList(head, name);
-    if (foundList == NULL){
-        printf("Can't find list\n");
-    } else {
-        printf("Enter the name of the item to edit: ");
-        fgets(name, sizeof(name), stdin);
-        name[strcspn(name, "\n")] = '\0';
-
-        Listptr foundElement = findElement(foundList->head, name);
-        if (strcmp(name, sizeof(name)) != 0){
+        if (foundElement == NULL){
             printf("Can't find item");
+            return;
         } else {
             char newName[30];
             printf("Enter new name: ");
@@ -54,5 +41,22 @@ void renameItem(Listptr head){
             strcpy(foundElement->name, newName);
         }
     }
+
+
+void addItem(Listptr foundList){
+    Elementptr newElement = malloc(sizeof(Element));
+    if (newElement == NULL) {printf("Error: No Memory\n"); return;}
+
+    printf("Enter the name of the new item: ");
+    char itemName[20];
+    fgets(itemName, sizeof(itemName), stdin);
+    itemName[strcspn(itemName, "\n")] = '\0';
+
+    strcpy(newElement->name, itemName);
+    newElement->nextE = foundList->head;
+    foundList->head = newElement; 
+}
+
+void deleteItem(Listptr foundList){
 
 }
