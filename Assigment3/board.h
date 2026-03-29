@@ -25,3 +25,9 @@ int writeElemRecursively(Elementptr Eptr, char* name, FILE* fp);
 void freeLists(Listptr Lptr);
 //release the sub-linked list
 void freeElements(Elementptr Eptr);
+
+/*
+ * ASCII art functions
+ */
+//print out the title of programe
+void title(void);

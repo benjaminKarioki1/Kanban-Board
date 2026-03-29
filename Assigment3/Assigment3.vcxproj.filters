@@ -39,6 +39,9 @@
     <ClCompile Include="editList.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ASCII.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="structure.h">

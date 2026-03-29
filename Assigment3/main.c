@@ -15,6 +15,18 @@ int main(void)
 
 	int option;
 
+
+	/*
+	 * Print the title at here
+	 * ASCII Art
+	 */
+	title();
+	//clean the terminal
+	printf("Press Enter to continue...\n");
+	getchar();
+	printf("\033[2J\033[H");
+
+
 	/*
 	 *  Here has the main body of the board
 	 */
