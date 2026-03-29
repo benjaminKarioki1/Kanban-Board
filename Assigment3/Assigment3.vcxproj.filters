@@ -33,6 +33,9 @@
     <ClCompile Include="freeList.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="edit.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="structure.h">
