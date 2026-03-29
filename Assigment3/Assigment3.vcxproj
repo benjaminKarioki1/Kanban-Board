@@ -128,7 +128,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="displayBoard.c" />
-    <ClCompile Include="edit.c" />
+    <ClCompile Include="editBoard.c" />
+    <ClCompile Include="editList.c" />
     <ClCompile Include="freeList.c" />
     <ClCompile Include="loadFile.c" />
     <ClCompile Include="main.c" />
