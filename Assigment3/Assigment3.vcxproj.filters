@@ -33,7 +33,10 @@
     <ClCompile Include="freeList.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="edit.c">
+    <ClCompile Include="editBoard.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="editList.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -47,5 +50,8 @@
     <ClInclude Include="edit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="example_data.csv" />
   </ItemGroup>
 </Project>

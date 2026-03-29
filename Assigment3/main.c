@@ -20,7 +20,10 @@ int main(void)
 	 */
 	do
 	{
+		//get the option from user
 		option = printMenu();
+		
+		//the main body to response the options
 		if (option == 1) 
 		{
 			//display the board on terminal

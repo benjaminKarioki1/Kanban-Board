@@ -37,7 +37,7 @@ int loadFile(Listptr *Lptr)
 		}
 		//confirm
 		//confirm the name
-		printf("The filename is: %s \nConfirm (yes/not/cancel): ", fileName);
+		printf("The filename is: %s \nConfirm (yes/cancel): ", fileName);
 		fgets(confirm, sizeof(confirm), stdin);
 		confirm[strcspn(confirm, "\n")] = '\0';
 		//cancel
@@ -66,7 +66,7 @@ int loadFile(Listptr *Lptr)
 		if (title == NULL) 
 		{
 			//pass
-			printf("Warning: Skipping malformed line: %s\n", line);
+			printf("Warning: Skipping a empty line.\n");
 			continue;
 		}
 

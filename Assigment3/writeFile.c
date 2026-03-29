@@ -33,7 +33,7 @@ int writeFile(Listptr Lptr)
 			fileName[sizeof(fileName) - 1] = '\0';
 		}
 		//confirm the name
-		printf("The filename is: %s \nConfirm (yes/not/cancel): ", fileName);
+		printf("The filename is: %s \nConfirm (yes/cancel): ", fileName);
 		fgets(confirm, sizeof(confirm), stdin);
 		confirm[strcspn(confirm, "\n")] = '\0';
 		//cancel
@@ -61,7 +61,6 @@ int writeFile(Listptr Lptr)
 	//failed to close file
 	if (fclose(fp) == EOF) 
 	{
-		perror("Failed to close file");
 		return WRITE_ERR_CLOSE_FILE;
 	}
 
@@ -88,15 +87,30 @@ int writeListRecursively(Listptr Lptr, FILE* fp)
 		return err;
 	}
 
-	//recursion the elenments under this List
-	err = writeElemRecursively(Lptr->head, Lptr->name, fp);
-	//send back error
-	if (err != WRITE_OK)
+	////recursion the elenments under this List
+	if (Lptr->head == NULL) 
 	{
-		return err;
+		//if there has no element under this List 
+		if (fprintf(fp, "%s\n", Lptr->name) < 0)
+		{
+			//send back error
+			return WRITE_ERR_WRITE_FAILED;
+		}
+		//write succesful
+		return WRITE_OK;
 	}
-	//send succes message
-	return WRITE_OK;
+	else 
+	{	
+		//use recursion to write
+		err = writeElemRecursively(Lptr->head, Lptr->name, fp);
+		//send back error
+		if (err != WRITE_OK)
+		{
+			return err;
+		}
+		//send succes message
+		return WRITE_OK;
+	}
 }
 
 int writeElemRecursively(Elementptr Eptr, char* name, FILE* fp)
@@ -116,7 +130,7 @@ int writeElemRecursively(Elementptr Eptr, char* name, FILE* fp)
 	}
 
 	//write into file
-	if (fprintf(fp, "\"%s\",\"%s\"\n", name, Eptr->name) < 0) 
+	if (fprintf(fp, "%s,%s\n", name, Eptr->name) < 0) 
 	{
 		//send back error
 		return WRITE_ERR_WRITE_FAILED;

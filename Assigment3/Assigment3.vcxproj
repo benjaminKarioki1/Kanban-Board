@@ -129,7 +129,10 @@
   <ItemGroup>
     <ClCompile Include="displayBoard.c" />
     <ClCompile Include="editBoard.c" />
-    <ClCompile Include="editList.c" />
+    <ClCompile Include="editList.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="freeList.c" />
     <ClCompile Include="loadFile.c" />
     <ClCompile Include="main.c" />
@@ -140,6 +143,9 @@
     <ClInclude Include="board.h" />
     <ClInclude Include="edit.h" />
     <ClInclude Include="structure.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="example_data.csv" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
