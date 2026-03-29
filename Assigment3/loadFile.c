@@ -7,28 +7,51 @@
 #include "structure.h"
 #include "board.h"
 
-void loadFile(Listptr *Lptr) 
+int loadFile(Listptr *Lptr) 
 {
 	//vairables
 	FILE* fp;
+
 	char fileName[100];
+	char confirm[16];
 	char line[100];
 	char* title;
 	char* element;
 	
 	//get the name of file
-	printf("Enter filename: ");
-	scanf("%99s", fileName);
-	//clean the stdin
-	scanf("%*[^\n]");
-	scanf("%*c");
+	do
+	{
+		//clean the terminal
+		printf("\033[2J\033[H");
+		//ask for the name of file to load
+		printf("Enter filename (xxx.csv): ");
+		fgets(fileName, sizeof(fileName), stdin);
+		fileName[strcspn(fileName, "\n")] = '\0';
+		//auto add ".csv"
+		if (strstr(fileName, ".csv") == NULL)
+		{
+			char tmp[sizeof(fileName)];
+			snprintf(tmp, sizeof(tmp), "%s.csv", fileName);
+			strncpy(fileName, tmp, sizeof(fileName));
+			fileName[sizeof(fileName) - 1] = '\0';
+		}
+		//confirm
+		//confirm the name
+		printf("The filename is: %s \nConfirm (yes/not/cancel): ", fileName);
+		fgets(confirm, sizeof(confirm), stdin);
+		confirm[strcspn(confirm, "\n")] = '\0';
+		//cancel
+		if (strcmp(confirm, "cancel") == 0) 
+		{
+			return LOAD_ERR_CANCELLED;
+		}
+	} while (strcmp(confirm, "yes") != 0);
+
 	//open the file
 	if ((fp = fopen(fileName, "r")) == NULL)
 	{
-		//faild to open
-		printf("Error: Could not open file. The %s dose not exist! \n", fileName);
-		
-		return;
+		//failed to open
+		return LOAD_ERR_OPEN_FILE;
 	}
 
 	//get the every line of the csv doc.
@@ -69,17 +92,15 @@ void loadFile(Listptr *Lptr)
 		if (newList == NULL)
 		{
 			//set the memory
-			newList = malloc(sizeof(List));
+			newList = malloc(sizeof(Node));
 			//faild
 			if (newList == NULL)
 			{
-				printf("Error: No Memory.\n");
-				free(newList);
-				fclose(fp);
-				return;
+				goto ERROR;
 			}
 			//insert name
-			strcpy(newList->name, title);
+			strncpy(newList->name, title, sizeof(newList->name) - 1);
+			newList->name[sizeof(newList->name) - 1] = '\0';
 			//init. the pointer to elements
 			newList->head = NULL;
 			//chage the position of pointer
@@ -90,17 +111,15 @@ void loadFile(Listptr *Lptr)
 		if (element != NULL) 
 		{
 			//creat element 
-			Elementptr newElement = malloc(sizeof(Element));
+			Elementptr newElement = malloc(sizeof(Elem));
 			//faild
 			if (newElement == NULL)
 			{
-				printf("Error: No Memory.\n");
-				free(newElement);
-				fclose(fp);
-				return;
+				goto ERROR;
 			}
 			//insert the value
-			strcpy(newElement->name, element);
+			strncpy(newElement->name, element, sizeof(newElement->name) - 1);
+			newElement->name[sizeof(newElement->name) - 1] = '\0';
 			//init. the next element pointer postion
 			newElement->nextE = NULL;
 			//set the postion of pointer
@@ -110,5 +129,12 @@ void loadFile(Listptr *Lptr)
 	}
 	//close the doc.
 	fclose(fp);
-	return;
+
+	return LOAD_OK;
+
+	ERROR:
+		fclose(fp);
+		freeLists(*Lptr);
+		*Lptr = NULL;
+		return LOAD_ERR_NO_MEMORY;
 }

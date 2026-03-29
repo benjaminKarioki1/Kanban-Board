@@ -29,7 +29,24 @@ int main(void)
 		else if (option == 2) 
 		{
 			//load the board from the file that user want
-			loadFile(&head);
+			int l_status = loadFile(&head);
+			switch (l_status)
+			{
+			case LOAD_OK:
+				printf("File load successfully.\n");
+				break;
+			case LOAD_ERR_CANCELLED:
+				printf("Operation cancelled by user.\n");
+				break;
+			case LOAD_ERR_OPEN_FILE:
+				printf("Could not open file.\n");
+				break;
+			case LOAD_ERR_NO_MEMORY:
+				printf("Error during loading. No Memoery\n");
+				break;
+			default:
+				printf("Unknown error occurred.\n");
+			}
 		}
 		else if (option == 3)
 		{
@@ -41,7 +58,29 @@ int main(void)
 		}
 		else if (option == 5) 
 		{
-			//
+			//write the board to the file
+			int w_status = writeFile(head);
+			//eoor solut
+			switch (w_status) 
+			{
+			case WRITE_OK:
+				printf("File written successfully.\n");
+				break;
+			case WRITE_ERR_CANCELLED:
+				printf("Operation cancelled by user.\n");
+				break;
+			case WRITE_ERR_OPEN_FILE:
+				printf("Could not open file.\n");
+				break;
+			case WRITE_ERR_WRITE_FAILED:
+				printf("Error during writing. Disk full?\n");
+				break;
+			case WRITE_ERR_CLOSE_FILE:
+				printf("Could not close file.\n");
+				break;
+			default:
+				printf("Unknown error occurred.\n");
+			}
 		}
 		else if (option == 6) 
 		{
@@ -59,6 +98,9 @@ int main(void)
 		printf("\033[2J\033[H");
 	} 
 	while (option != 6);
+
+	//release the linked list
+	freeLists(head);
 
 	return 0;
 }

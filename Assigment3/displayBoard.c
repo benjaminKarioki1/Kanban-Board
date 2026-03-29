@@ -17,11 +17,11 @@ void displayBoard(Listptr Lptr)
 		//copy the pointer
 		Listptr currentList = Lptr;
 		//print out all List
-		while (Lptr != NULL) 
+		while (currentList != NULL)
 		{
 			printf("%s:\n", currentList->name);
 			//access the elements
-			Element* currentElement = currentList->head;
+			Elementptr currentElement = currentList->head;
 			//print out eleents
 			while (currentElement != NULL)
 			{

@@ -1,23 +1,43 @@
 //the structure for elements
-typedef struct Elements
+typedef struct Element
 {
 	//name of the element
 	char name[30];
 	//pointer to next element
-	struct Elements* nextE;
-}Element;
+	struct Element* nextE;
+}Elem;
 //make a pointer 
-typedef Element* Elementptr;
+typedef Elem* Elementptr;
 
 //the structure for lists
-typedef struct Lists
+typedef struct ListNode
 {
 	//name of the list
 	char name[30];
 	//to the elements
 	Elementptr head;
 	//pointer to next list
-	struct Lists* nextL;
-}List;
+	struct ListNode* nextL;
+}Node;
 //make a pointer
-typedef List* Listptr;
+typedef Node* Listptr;
+
+//the enumeration for loading
+typedef enum 
+{
+	LOAD_OK = 0,
+	LOAD_ERR_CANCELLED = -1,
+	LOAD_ERR_OPEN_FILE = 1,
+	LOAD_ERR_NO_MEMORY = 2
+} LoadStatus;
+
+//the enumeration for writting
+typedef enum 
+{
+	WRITE_OK = 0,
+	WRITE_ERR_CANCELLED = -1,     
+	WRITE_ERR_OPEN_FILE = 1,      
+	WRITE_ERR_WRITE_FAILED = 2,   
+	WRITE_ERR_CLOSE_FILE = 3,     
+	//WRITE_ERR_INVALID_PARAM = 4   
+} WriteStatus;
