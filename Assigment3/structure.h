@@ -5,6 +5,8 @@ typedef struct Element
 	char name[30];
 	//pointer to next element
 	struct Element* nextE;
+	//pointer to last element
+	struct Element* lastE;
 }Elem;
 //make a pointer 
 typedef Elem* Elementptr;
@@ -18,6 +20,8 @@ typedef struct ListNode
 	Elementptr head;
 	//pointer to next list
 	struct ListNode* nextL;
+	//pointer to last llist
+	struct ListNode* lastL;
 }Node;
 //make a pointer
 typedef Node* Listptr;

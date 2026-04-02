@@ -103,9 +103,16 @@ int loadFile(Listptr *Lptr)
 			newList->name[sizeof(newList->name) - 1] = '\0';
 			//init. the pointer to elements
 			newList->head = NULL;
+			newList->lastL = NULL;
 			//chage the position of pointer
 			newList->nextL = *Lptr;
 			*Lptr = newList;
+			//if this is not the sigle one list node.
+			if (newList->nextL != NULL) 
+			{
+				//set the new listnode location to the last listnode.
+				newList->nextL->lastL = newList;
+			}
 		}
 		
 		if (element != NULL) 
@@ -122,9 +129,16 @@ int loadFile(Listptr *Lptr)
 			newElement->name[sizeof(newElement->name) - 1] = '\0';
 			//init. the next element pointer postion
 			newElement->nextE = NULL;
+			newElement->lastE = NULL;
 			//set the postion of pointer
 			newElement->nextE = newList->head;
 			newList->head = newElement;
+			//if this is not the sigle one element node.
+			if (newElement->nextE != NULL) 
+			{
+				//set the new element node location to the last element.
+				newElement->nextE->lastE = newElement;
+			}
 		}
 	}
 	//close the doc.
