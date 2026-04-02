@@ -31,6 +31,7 @@ Elementptr findElement(Elementptr head, char* targetName) {
     return NULL;
 }
 
+// function to rename the element of a board
 void renameItem(Listptr foundElement) {
 
     if (foundElement == NULL) {
@@ -39,16 +40,16 @@ void renameItem(Listptr foundElement) {
     }
     else {
         char newName[30];
-        printf("Enter new name: ");
+        printf("Enter new name for the item: %s", foundElement);
         fgets(newName, sizeof(newName), stdin);
         newName[strcspn(newName, "\n")] = '\0';
         strcpy(foundElement->name, newName);
     }
 }
 
-
+//function to add an element to the board
 void addItem(Listptr foundList) {
-    Elementptr newElement = malloc(sizeof(Element));
+    Elementptr newElement = malloc(sizeof(Elem));
     if (newElement == NULL) { printf("Error: No Memory\n"); return; }
 
     printf("Enter the name of the new item: ");
@@ -61,6 +62,43 @@ void addItem(Listptr foundList) {
     foundList->head = newElement;
 }
 
+//function to delete the element of a board
 void deleteItem(Listptr foundList) {
+    char name[20];
+    printf("Enter the name of the item to delete: ");
+	fgets(name, sizeof(name),stdin);
+	name[strcspn(name, "\n")] = '\0';
 
+    Elementptr current = foundList->head;
+    Elementptr prev = NULL;
+
+    if (foundList->head == NULL)
+    {
+        printf("The list is empty");
+        return;
+    }
+    else 
+    {
+        if (strcmp(foundList->head->name, name)== 0) 
+        {
+            Elementptr temp = foundList->head; //save old head node
+            foundList->head = foundList->head->nextE; //move head pointer to next element
+            free(temp); //free memory of the old head node
+        } 
+        else
+        {
+            while (current != NULL)
+            {
+                if (strcmp(current->name, name) == 0){
+                    prev->nextE = current->nextE; //moves "prev" pointer to the value of nextE pointed to by "current"
+                    free(current); //free memory of the current node
+                    return;
+                }
+                // keep track of the node behind "current" and node ahead of "current"
+                prev = current;
+                current = current->nextE;
+            }
+            printf("Can't find item\n");
+        }
+    }
 }

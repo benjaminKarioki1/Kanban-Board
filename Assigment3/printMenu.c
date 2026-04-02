@@ -26,3 +26,18 @@ int printMenu(void)
 	//return the option number back
 	return choose; 
 }
+
+int printOptions(){
+	int choice;
+	printf("Options:\n"
+			"1.Edit an item\n"
+			"2.Add a new item\n"
+			"3.Delete an item\n"
+			"4.Return to main menu\n"
+			"Enter your option: ");
+
+	scanf("%d", &choice);
+	scanf("%*[^\n]");
+	scanf("%*c");	
+	return choice;
+}

@@ -1,6 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <stdio.h>
+#include <string.h>
 
 #include "structure.h"
 #include "board.h"
@@ -14,6 +15,7 @@ int main(void)
 	Listptr head = NULL;
 
 	int option;
+	int editOption;
 
 
 	/*
@@ -65,7 +67,40 @@ int main(void)
 		}
 		else if (option == 3)
 		{
-			//
+			//edit items on the board
+			char name[20];
+			printf("Enter the name of the list to edit: ");
+			fgets(name, sizeof(name), stdin);
+			name[strcspn(name, "\n")] = '\0';
+			Listptr foundList = findList(head, name); //search function
+			if (foundList == NULL)
+			{
+				printf("Can't find list\n");
+			}
+			else
+			{
+				do
+				{
+					editOption = printOptions();
+					switch (editOption)
+					{
+					case 1:
+						renameItem(foundList);
+						break;
+					case 2:
+						addItem(foundList);
+						break;
+					case 3:
+						deleteItem(foundList);
+						break;
+					case 4:
+						break;
+					default:
+						printf("Invalid option!\n");
+						break;
+					}
+				} while (editOption != 4);
+			}
 		}
 		else if (option == 4) 
 		{
