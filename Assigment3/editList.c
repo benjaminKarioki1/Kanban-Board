@@ -40,7 +40,7 @@ void renameItem(Listptr foundElement) {
     }
     else {
         char newName[30];
-        printf("Enter new name for the item: %s", foundElement);
+        printf("Enter new name for the item");
         fgets(newName, sizeof(newName), stdin);
         newName[strcspn(newName, "\n")] = '\0';
         strcpy(foundElement->name, newName);
@@ -49,7 +49,7 @@ void renameItem(Listptr foundElement) {
 
 //function to add an element to the board
 void addItem(Listptr foundList) {
-    Elementptr newElement = malloc(sizeof(Elem));
+    Elementptr newElement = malloc(sizeof(Node));
     if (newElement == NULL) { printf("Error: No Memory\n"); return; }
 
     printf("Enter the name of the new item: ");

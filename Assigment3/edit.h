@@ -1,3 +1,6 @@
+#pragma once
+#include "structure.h"
+
 Listptr findList(Listptr head, char *targetName);
 Elementptr findElement(Elementptr head, char *targetName);
 
