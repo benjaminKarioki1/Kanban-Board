@@ -17,6 +17,8 @@ int main(void)
 	int option;
 	int editOption;
 
+	char listName[20];
+
 
 	/*
 	 * Print the title at here
@@ -67,12 +69,19 @@ int main(void)
 		}
 		else if (option == 3)
 		{
+			//clean the terminal
+			printf("\033[2J\033[H");
+			//display board
+			displayBoard(head);
 			//edit items on the board
-			char name[20];
 			printf("Enter the name of the list to edit: ");
-			fgets(name, sizeof(name), stdin);
-			name[strcspn(name, "\n")] = '\0';
-			Listptr foundList = findList(head, name); //search function
+			fgets(listName, sizeof(listName), stdin);
+			listName[strcspn(listName, "\n")] = '\0';
+			//search function
+			Listptr foundList = findList(head, listName);
+			//clean the terminal
+			printf("\033[2J\033[H");
+			//if can't find the list, return error
 			if (foundList == NULL)
 			{
 				printf("Can't find list\n");
@@ -81,22 +90,35 @@ int main(void)
 			{
 				do
 				{
+					//print the board
+					displayBoard(head);
+					//ask the option from user
 					editOption = printOptions();
 					switch (editOption)
 					{
 					case 1:
 						renameItem(foundList);
+						//clean the terminal
+						printf("\033[2J\033[H");
 						break;
 					case 2:
 						addItem(foundList);
+						//clean the terminal
+						printf("\033[2J\033[H");
 						break;
 					case 3:
 						deleteItem(foundList);
+						//clean the terminal
+						printf("\033[2J\033[H");
 						break;
 					case 4:
 						break;
 					default:
 						printf("Invalid option!\n");
+						//clean the terminal
+						printf("Press Enter to continue...\n");
+						getchar();
+						printf("\033[2J\033[H");
 						break;
 					}
 				} while (editOption != 4);
