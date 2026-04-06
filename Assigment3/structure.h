@@ -1,5 +1,4 @@
 #pragma once 
-
 //the structure for elements
 typedef struct Element
 {
