@@ -72,8 +72,11 @@ void addItem(Listptr foundList) {
 
     //add it to the list and set the pointers to the next node
     strcpy(newElement->name, itemName);
+    newElement->lastE = NULL;
     newElement->nextE = foundList->head;
-    foundList->head = newElement;
+
+    if (foundList->head != NULL){foundList->head->lastE = newElement;} // If a node was already there
+    foundList->head = newElement;                                       // point if back at new node
 }
 
 //function to delete the element of a board
@@ -100,6 +103,7 @@ void deleteItem(Listptr foundList) {
         {
             Elementptr temp = foundList->head; //save old head node
             foundList->head = foundList->head->nextE; //move head pointer to next element
+            if (foundList->head != NULL) {foundList->head->lastE = NULL;} // If a next node exists it now has nothing behind it
             free(temp); //free memory of the old head node
         } 
         else
@@ -110,6 +114,7 @@ void deleteItem(Listptr foundList) {
                 //check equivalence for the rest of the nodes
                 if (strcmp(current->name, name) == 0){
                     prev->nextE = current->nextE; //moves "prev" pointer to the value of nextE pointed to by "current"
+                    if (current->nextE != NULL){current->nextE->lastE = prev;} // if a node comes after, point it back at prev
                     free(current); //free memory of the current node
                     return;
                 }
@@ -120,4 +125,79 @@ void deleteItem(Listptr foundList) {
             printf("Can't find item\n");
         }
     }
+}
+
+void renameList(Listptr head) {
+    char name[30];
+    printf("Enter the name of the list to rename: ");
+    fgets(name, sizeof(name), stdin);
+    name[strcspn(name, "\n")] = '\0';
+
+    Listptr foundList = findList(head, name);
+    if (foundList == NULL) { printf("Can't find list\n"); return; }
+
+    char newName[30];
+    printf("Enter new name for list '%s': ", name);
+    fgets(newName, sizeof(newName), stdin);
+    newName[strcspn(newName, "\n")] = '\0';
+
+    strcpy(foundList->name, newName);
+}
+
+void addList(Listptr *head) {
+    Listptr newList = malloc(sizeof(Node));
+    if (newList == NULL) { printf("Error: No Memory\n"); return; }
+
+    printf("Enter the name of the new list: ");
+    char listName[30];
+    fgets(listName, sizeof(listName), stdin);
+    listName[strcspn(listName, "\n")] = '\0';
+
+    strcpy(newList->name, listName);
+    newList->head = NULL;
+    newList->lastL = NULL;
+    newList->nextL = *head;
+
+    if (*head != NULL) {
+        (*head)->lastL = newList;    // old head points back at new node
+    }
+
+    *head = newList;                 // board head now points to new list
+}
+
+void deleteList(Listptr *head) {
+    char name[30];
+    printf("Enter the name of the list to delete: ");
+    fgets(name, sizeof(name), stdin);
+    name[strcspn(name, "\n")] = '\0';
+
+    if (*head == NULL) { printf("Board is empty\n"); return; }
+
+    if (strcmp((*head)->name, name) == 0) {
+        Listptr temp = *head;
+        *head = (*head)->nextL;
+        if (*head != NULL) {
+            (*head)->lastL = NULL;   // new head has nothing behind it
+        }
+        freeElements(temp->head);    // free all elements inside first
+        free(temp);
+        return;
+    }
+
+    Listptr current = *head;
+    Listptr prev = NULL;
+    while (current != NULL) {
+        if (strcmp(current->name, name) == 0) {
+            prev->nextL = current->nextL;
+            if (current->nextL != NULL) {
+                current->nextL->lastL = prev;  // fix backward pointer
+            }
+            freeElements(current->head);       // free elements inside first
+            free(current);
+            return;
+        }
+        prev = current;
+        current = current->nextL;
+    }
+    printf("Can't find list\n");
 }
