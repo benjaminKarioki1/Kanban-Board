@@ -27,16 +27,19 @@ int printMenu(void)
 	return choose; 
 }
 
-int printOptions(){
+int printOptions()
+{
 	int choice;
+	//print out the edit list menu
 	printf("Options:\n"
 			"1.Edit an item\n"
 			"2.Add a new item\n"
 			"3.Delete an item\n"
 			"4.Return to main menu\n"
 			"Enter your option: ");
-
+	//get the option
 	scanf("%d", &choice);
+	//clean the stdin
 	scanf("%*[^\n]");
 	scanf("%*c");	
 	return choice;
