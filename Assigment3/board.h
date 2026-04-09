@@ -1,5 +1,5 @@
 /*
- * ASCII art functions
+ * Display functions
  */
  //print out the title of programe
 void title(void);
