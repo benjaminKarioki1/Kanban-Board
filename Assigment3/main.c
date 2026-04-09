@@ -126,7 +126,36 @@ int main(void)
 		}
 		else if (option == 4) 
 		{
-			//
+			// edit lists on the board
+			int boardOption;
+			do
+			{
+				displayBoard(head);
+				boardOption = printBoardOptions();
+				switch (boardOption)
+				{
+				case 1:
+					renameList(head);
+					printf("\033[2J\033[H");
+					break;
+				case 2:
+					addList(&head);
+					printf("\033[2J\033[H");
+					break;
+				case 3:
+					deleteList(&head);
+					printf("\033[2J\033[H");
+					break;
+				case 4:
+					break;
+				default:
+					printf("Invalid option!\n");
+					printf("Press Enter to continue...\n");
+					getchar();
+					printf("\033[2J\033[H");
+					break;
+				}
+			} while (boardOption != 4);
 		}
 		else if (option == 5) 
 		{

@@ -5,6 +5,7 @@
 #include <string.h>
 
 #include "structure.h"
+#include "board.h"
 #include "edit.h"
 
 // searches the board for a list by name, returns a pointer to it (or NULL)
@@ -61,7 +62,7 @@ void renameItem(Listptr foundList) {
 //function to add an element to the board
 void addItem(Listptr foundList) {
     //allocate memory for a new node
-    Elementptr newElement = malloc(sizeof(Node));
+    Elementptr newElement = malloc(sizeof(Elem));
     if (newElement == NULL) { printf("Error: No Memory\n"); return; }
 
     //get the name of the new item

@@ -4,6 +4,7 @@
 
 #include "structure.h"
 #include "board.h"
+#include <stdlib.h>
 
 //release the sub-linked list
 void freeElements(Elementptr Eptr) 
