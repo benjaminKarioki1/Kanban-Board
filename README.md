@@ -2,8 +2,6 @@
 
 A terminal-based Kanban board application written in C, using a doubly linked list structure to manage lists and their elements.
 
-**Repository:** https://csgitlab.ucd.ie/BenjaminKarioki/jiahongben-assignment3.git
-
 ## Authors
 
 | Member | Contributions |
