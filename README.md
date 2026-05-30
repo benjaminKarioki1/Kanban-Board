@@ -1,92 +1,102 @@
-# JiahongBen-Assignment3
+# Assignment 3 – Kanban Board (C)
 
+A terminal-based Kanban board application written in C, using a doubly linked list structure to manage lists and their elements.
 
+**Repository:** https://csgitlab.ucd.ie/BenjaminKarioki/jiahongben-assignment3.git
 
-## Getting started
+## Authors
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+| Member | Contributions |
+|--------|--------------|
+| Jiahong Liu | Main structure, Display (Option 1), Load file (Option 2), Save file (Option 5), Free memory |
+| Benjamin Karioki | Edit list (Option 3), Edit board (Option 4) |
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+---
 
-## Add your files
+## Data Structure
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+The board is represented as a **doubly linked list of lists**, where each list node holds its own doubly linked list of elements.
+
+- `nextE` / `lastE` — forward/backward pointers for element nodes
+- `nextL` / `lastL` — forward/backward pointers for list nodes
+
+Two enumerations are used to report the status of load and save operations, aiding debugging.
+
+---
+
+## Features
+
+The program launches with an ASCII art title and a menu driven by a `do-while` loop. The user enters a number (1–6) to select an option.
+
+### Option 1 – Display Board
+Renders the full board to the terminal using a nested `while` loop: the outer loop traverses each list node, and the inner loop traverses each element within it. Empty boards display a hint message.
+
+### Option 2 – Load File
+Reads a `.csv` file to populate the board.
+
+- Prompts the user for a valid `.csv` filename (confirmed before loading)
+- Reads each line, splitting it into a list name and an element name
+- Handles lists with no elements
+- Traverses existing list nodes — creates a new list node if it doesn't exist, or reuses one that does
+- New list nodes are inserted at the head of the board
+
+### Option 3 – Edit List
+Modifies the elements inside a specific list. Uses `findList` to locate the target list and `findElement` to locate elements within it.
+
+**Rename item** (`editList.c`, lines 36–60)
+- Locates the element by name
+- Replaces the old name with the new one using `strcpy`
+
+**Add item** (`editList.c`, lines 63–81)
+- Allocates a new element node with `malloc`
+- Inserts it at the head of the element linked list
+- Updates `nextE` and `lastE` pointers
+
+**Delete item** (`editList.c`, lines 84–129)
+- Handles two cases: head node deletion and mid-list deletion
+- Reconnects neighbouring nodes and frees memory with `free()`
+
+### Option 4 – Edit Board
+Modifies the board structure (lists, not elements). Provides a submenu via `printBoardOptions`.
+
+**Rename list** (`editList.c`, lines 131–146)
+- Finds the list using `findList` and updates its name with `strcpy`
+
+**Add new list** (`editList.c`, lines 148–167)
+- Allocates a new list node with `malloc`
+- Inserts at the head of the board linked list
+- Updates `nextL` and `lastL` pointers
+
+**Delete list** (`editList.c`, lines 169–186)
+- Handles head-node and mid-list deletion
+- Calls `freeElements` to release all element nodes before freeing the list node
+
+### Option 5 – Save File
+Saves the board to a `.csv` file.
+
+- Prompts the user for a filename (confirmed before writing)
+- Uses **recursion** to write lists in the correct order — since loading inserts at the head, saving must write from the tail first to preserve structure on reload
+- Each line contains a list name and its corresponding element name
+
+---
+
+## Memory Management
+
+Two functions handle cleanup:
+
+- `freeElements` — frees all element nodes in a list, traversing from the head
+- `freeBoard` (or equivalent) — frees all list nodes, traversing from the head
+
+Memory is released before program exit to prevent leaks.
+
+---
+
+## File Format
+
+The board is persisted as a `.csv` file where each row represents one element:
 
 ```
-cd existing_repo
-git remote add origin https://csgitlab.ucd.ie/BenjaminKarioki/jiahongben-assignment3.git
-git branch -M main
-git push -uf origin main
+ListName,ElementName
 ```
 
-## Integrate with your tools
-
-- [ ] [Set up project integrations](https://csgitlab.ucd.ie/BenjaminKarioki/jiahongben-assignment3/-/settings/integrations)
-
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+Lists with no elements are also supported.
